@@ -41,6 +41,7 @@ internal class NaverMapView: NSObject, FlutterPlatformView {
     }
 
     deinit {
+        eventDelegate.unregisterDelegates(mapView: naverMap.mapView)
         naverMapControlSender.dispose()
     }
 }
