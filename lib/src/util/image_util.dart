@@ -73,7 +73,11 @@ class ImageUtil {
     final previousCacheFolders = await previousCacheFolderStream.toList();
 
     for (final folder in previousCacheFolders) {
-      folder.delete(recursive: true); // not wait.
+      try {
+        await folder.delete(recursive: true);
+      } on FileSystemException catch (_) {
+        // 이미 삭제된 경우 무시
+      }
     }
   }
 
@@ -88,7 +92,11 @@ class ImageUtil {
       if (dir case Directory(:final path)) {
         final name = path.split("/").last;
         if (name.startsWith(_oldV1PathPrefix)) {
-          dir.delete(recursive: true); // not wait.
+          try {
+            await dir.delete(recursive: true);
+          } on FileSystemException catch (_) {
+            // 이미 삭제된 경우 무시
+          }
         }
       }
     }
