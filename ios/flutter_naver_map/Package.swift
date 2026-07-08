@@ -12,7 +12,7 @@ let package = Package(
         .library(name: "flutter-naver-map", targets: ["flutter_naver_map"])
     ],
     dependencies: [
-        .package(url: "https://github.com/navermaps/SPM-NMapsMap.git", from: "3.23.0"),
+        .package(url: "https://github.com/navermaps/SPM-NMapsMap.git", from: "3.23.3"),
     ],
     targets: [
         .target(
