@@ -190,6 +190,10 @@ class _NaverMapControllerImpl
     final addTaskFuture = invokeMethodWithIterable("addOverlayAll", overlays);
     _connectOverlayControllerOnOverlays(overlays);
     await addTaskFuture;
+    if (kDebugMode) {
+      log("오버레이 추가됨: ${overlays.map((o) => o.info.id).toList()} "
+          "(총 ${overlays.length}개)", name: "NaverMap.Overlay");
+    }
   }
 
   void _connectOverlayControllerOnOverlays(Iterable<NAddableOverlay> overlays) {
@@ -203,6 +207,10 @@ class _NaverMapControllerImpl
     assert(info.type != NOverlayType.locationOverlay);
     await invokeMethod("deleteOverlay", info);
     overlayController.deleteWithInfo(info);
+    if (kDebugMode) {
+      log("오버레이 삭제됨: ${info.id} (${info.type.name})",
+          name: "NaverMap.Overlay");
+    }
   }
 
   @override
@@ -210,6 +218,10 @@ class _NaverMapControllerImpl
     assert(type != NOverlayType.locationOverlay);
     overlayController.clear(type);
     await invokeMethod("clearOverlays", type);
+    if (kDebugMode) {
+      log("오버레이 전체 삭제됨: ${type?.name ?? "모든 타입"}",
+          name: "NaverMap.Overlay");
+    }
   }
 
   @override
